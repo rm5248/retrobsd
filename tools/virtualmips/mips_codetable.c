@@ -1684,7 +1684,8 @@ static int rdpgpr_op (cpu_mips_t * cpu, mips_insn_t insn)
     int rt = bits (insn, 16, 20);
     int rd = bits (insn, 11, 15);
 
-    printf ("%08x: unsupported RDPGPR $%u,$%u instruction.\n", cpu->pc, rd, rt);
+    /* Only one GPR set supported: RDPGPR works as move. */
+    cpu->reg_set (cpu, rd, cpu->gpr[rt]);
     return (0);
 }
 
@@ -1693,7 +1694,8 @@ static int wrpgpr_op (cpu_mips_t * cpu, mips_insn_t insn)
     int rt = bits (insn, 16, 20);
     int rd = bits (insn, 11, 15);
 
-    printf ("%08x: unsupported WRPGPR $%u,$%u instruction.\n", cpu->pc, rd, rt);
+    /* Only one GPR set supported: WRPGPR works as move. */
+    cpu->reg_set (cpu, rd, cpu->gpr[rt]);
     return (0);
 }
 

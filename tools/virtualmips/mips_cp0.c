@@ -93,6 +93,8 @@ unimpl:     fprintf (stderr,
             return cp0->reg[cp0_reg];
         case 1:                         /* IntCtl */
             return cp0->intctl_reg;
+        case 2:                         /* SRSCtl */
+            return 0;
         }
         goto unimpl;
 
@@ -171,6 +173,8 @@ void mips_cp0_set_reg (cpu_mips_t * cpu, u_int cp0_reg, u_int sel,
             break;
         case 1:                         /* IntCtl */
             cp0->intctl_reg = val;
+            break;
+        case 2:                         /* SRSCtl */
             break;
         default:
             goto unimpl;
