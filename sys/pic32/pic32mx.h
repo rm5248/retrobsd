@@ -27,6 +27,7 @@
 /*--------------------------------------
  * Coprocessor 0 registers.
  */
+#ifndef __ASSEMBLER__
 #define C0_HWRENA	7	/* Enable RDHWR in non-privileged mode */
 #define C0_BADVADDR	8	/* Virtual address of last exception */
 #define C0_COUNT	9	/* Processor cycle count */
@@ -47,6 +48,7 @@
 #define C0_DEPC		24	/* Program counter at last debug exception */
 #define C0_ERROREPC	30	/* Program counter at last error */
 #define C0_DESAVE	31	/* Debug handler scratchpad register */
+#endif
 
 /*
  * Status register.
