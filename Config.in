@@ -3,7 +3,83 @@
 # see scripts/config-language.txt.
 #
 
-menu "Example Menuconfig"
+menu "PIC Speeds"
+config BUS_DIV
+	int "The bus divisor"
+	default 1
+	help
+	  The bus divisor
+
+config BUS_KHZ
+	int "The bus speed in KHZ"
+	default 80000
+	help
+	  The bus speed in KHZ.  This is determined by the oscillators.
+
+config CPU_IDIV
+	int "The CPU divisor"
+	default 2
+	help
+	  The CPU Divisor
+
+config CPU_KHZ
+	int "The speed of the CPU, in KHz"
+	default 80000
+	
+config CPU_MUL
+	int "The CPU multiplier"
+	default 20
+
+config CPU_ODIV
+	int "CPU ODIV"
+	default 1
+
+config CRYSTAL
+	int "Crystal speed"
+	default 8
+
+endmenu
+
+menu "Configuration register options"
+endmenu
+
+menu "TTY Options"
+config CONSOLE_DEVICE
+	string "The default console device"
+	default "tty1"
+
+
+endmenu
+
+menu "Exec options"
+config EXEC_AOUT
+	bool "Execute a.out format executables"
+	default y
+
+config EXEC_ELF
+	bool "Execute ELF format executables"
+	default y
+
+config EXEC_SCRIPT
+	bool "Execute script files"
+	default y
+
+endmenu
+
+menu "Drivers"
+config GPIO_ENABLED
+	bool "Enable GPIO driver"
+	default y
+endmenu
+
+config KERNEL
+	bool "Build as a kernel?"
+	default y
+	help
+	  You really probably don't want to change this.  That would be a 
+	  stupid idea.
+
+
 config String_Example
 	string "String Example"
 	default "abcdef"
@@ -39,10 +115,11 @@ config Depend_2_example
 	bool "Depend 2 example"
 	default n
 	help
-	  Even small dogs may be forbidden on public transport and in shopping malls and
-	  supermarkets.
+	  Even small dogs may be forbidden on public transport and in shopping 
+	  malls and supermarkets.
 
-	  Note Other provisions will address where dogs can be walked and who's responsible 
+	  Note Other provisions will address where dogs can be walked and who's 
+	  responsible 
 	  for any messes they leave behind.
 	  
 choice
@@ -60,5 +137,4 @@ config OPTION_3
 	bool "OPTION 3"
 
 endchoice
-endmenu
 comment "Applets"

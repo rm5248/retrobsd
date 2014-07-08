@@ -6,6 +6,9 @@ S         = ../../../tools/configsys/../../sys/kernel
 vpath %.c $(M):$(S)
 vpath %.S $(M):$(S)
 
+KERNOBJ-y += adc.o
+KERNOBJ-y += clock.o
+
 # TODO: migrate to config
 DEFS += -DDC0_DEBUG=DEVCFG0_DEBUG_DISABLED
 DEFS += -DDC0_ICE=0
@@ -52,6 +55,6 @@ LDSCRIPT = ../../../tools/configsys/../../sys/pic32/cfg/bare.ld
 CONFIG = EXPLORER16
 CONFIGPATH = ../../../tools/configsys
 
-include ../../../Config.in
+include ../../../.config
 
 include ../../../tools/configsys/../../sys/pic32/kernel-post.mk

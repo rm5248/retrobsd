@@ -31,9 +31,10 @@ RETROONE	    = sys/pic32/retroone/RETROONE
 FUBARINO	    = sys/pic32/fubarino/FUBARINO
 FUBARINOBIG	    = sys/pic32/fubarino/FUBARINO-UART2CONS-UART1-SRAMC
 MMBMX7          = sys/pic32/mmb-mx7/MMB-MX7
+TESTER		= sys/pic32/tester/TESTER
 
 # Select target board
-TARGET          ?= $(MAX32)
+TARGET          ?= $(TESTER)
 
 # Filesystem and swap sizes.
 FS_KBYTES       = 102400
@@ -114,6 +115,10 @@ U_FILES          = $(shell find u -type f ! -path '*/.svn/*')
 
 CDEVS            = $(D_CONSOLE) $(D_MEM) $(D_TTY) $(D_FD) $(D_TEMP)
 
+#######################
+
+#######################
+
 all:            tools build kernel
 		$(MAKE) fs
 
@@ -123,11 +128,42 @@ fs:             sdcard.rd
 tools:
 		$(MAKE) -C tools
 
-kernel: 	$(TARGETDIR)/Makefile
-		$(MAKE) -C $(TARGETDIR)
+BUILDPATH = sys/pic32
+H         = sys/include
+M         = sys/pic32
+S         = sys/kernel
+#include sys/pic32/kernel-post.mk
+#-include .config
 
-$(TARGETDIR)/Makefile: $(CONFIG) $(TARGETDIR)/$(TARGETNAME)
-		cd $(TARGETDIR) && ../../../tools/configsys/config $(TARGETNAME)
+src 	:= $(CURDIR)
+
+#kbuild-dir	:= $(CURDIR)/sys
+#kbuild-file	:= $(kbuild-dir)/Makefile
+#include $(kbuild-file)
+
+#unix.elf:       $(KERNOBJ-y)
+#var = $(filter /%,$(src))
+
+
+vpath %.c $(M):$(S)
+vpath %.S $(M):$(S)
+
+KERNOBJ-y =
+include .config
+include sys/pic32/Makefile
+include sys/pic32/kernel-post.mk
+
+tmp:
+	echo "$(KERNOBJ-y)"
+	echo hi
+
+kernel: unix.elf
+
+#kernel: 	$(TARGETDIR)/Makefile
+#		$(MAKE) -C $(TARGETDIR)
+
+#$(TARGETDIR)/Makefile: $(CONFIG) $(TARGETDIR)/$(TARGETNAME)
+#		cd $(TARGETDIR) && ../../../tools/configsys/config $(TARGETNAME)
 
 .PHONY: 	lib
 lib:
@@ -205,3 +241,11 @@ installboot:
 
 .profile:   etc/root/dot.profile
 		cp etc/root/dot.profile .profile
+
+# CONFIGURATION STUFF
+menuconfig: .config
+	$(MAKE) -C scripts
+	scripts/mconf Config.in
+
+.config:
+	cp $(TARGETDIR)/kconfig .config

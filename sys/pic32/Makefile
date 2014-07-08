@@ -1,24 +1,32 @@
 
-# Programs that live in subdirectories, and have makefiles of their own.
-#
-SUBDIR		= baremetal dip duinomite duinomite-uart duinomite-e \
-                  duinomite-e-uart explorer16 max32 max32-eth maximite \
-                  meb pinguino-micro starter-kit ubw32 ubw32-uart \
-                  ubw32-uart-sdram baremetal fubarino mmb-mx7 maximite-color \
-                  32mxsdram-uart picadillo
-
-default:
-
-all:
-		-for i in $(SUBDIR); do ${MAKE} -C $$i all; done
-
-install:
-
-clean:
-		-for i in $(SUBDIR); do ${MAKE} -C $$i clean; done
-		find .. -name \*~ | xargs rm -f
-
-reconfig:
-		-for i in $(SUBDIR); do echo $$i; \
-                I=`echo $$i | awk '{print toupper($$0)}'`; \
-                (cd $$i; ../../../tools/configsys/config $$I); done
+KERNOBJ-y		+= adc.o
+KERNOBJ-y 		+= clock.o
+KERNOBJ-y		+= cons.o
+KERNOBJ-y		+= devcfg.o
+KERNOBJ-y		+= devsw.o
+KERNOBJ-y		+= exception.o
+KERNOBJ-y		+= glcd.o
+KERNOBJ-$(DRIVER_GPIO) 	+= gpio.o
+KERNOBJ-y		+= machdep.o
+KERNOBJ-y		+= mem.o
+KERNOBJ-y		+= oc.o
+KERNOBJ-y		+= picga.o
+KERNOBJ-y		+= power_control.o
+KERNOBJ-y		+= rd_flash.o
+KERNOBJ-y		+= rd_mrams.o
+KERNOBJ-y		+= rd_sd.o
+KERNOBJ-y		+= rd_sdramp.o
+KERNOBJ-y		+= rd_sramc.o
+KERNOBJ-y		+= signal.o
+KERNOBJ-y		+= spi_bus.o
+KERNOBJ-y		+= spi.o
+KERNOBJ-y		+= ssd1926-sdcard.o
+KERNOBJ-y		+= swap.o
+KERNOBJ-y		+= sysctl.o
+KERNOBJ-y		+= uart.o
+KERNOBJ-y		+= usb_boot.o
+KERNOBJ-y		+= usb_console.o
+KERNOBJ-y		+= usb_device.o
+KERNOBJ-y		+= usb_function_cdc.o
+KERNOBJ-y		+= usb_function_hid.o
+KERNOBJ-y		+= usb_uart.o

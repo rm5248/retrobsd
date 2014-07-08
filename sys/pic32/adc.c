@@ -30,6 +30,7 @@
 #include "uio.h"
 #include "adc.h"
 #include "debug.h"
+#include "machine/pic32mx.h"
 
 const struct devspec adcdevs[] = {
     { 0, "adc0" }, { 1, "adc1" }, { 2, "adc2" }, { 3, "adc3" },

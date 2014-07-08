@@ -1,6 +1,6 @@
 
 DEPFLAGS	= -MT $@ -MP -MD -MF .deps/$*.dep
-CFLAGS		= -I. -I$(H) -O $(DEFS) $(DEPFLAGS)
+CFLAGS		= -Iinclude -Isys/include -O -DKERNEL $(DEFS) $(DEPFLAGS)
 ASFLAGS		= -I. -I$(H) $(DEFS) $(DEPFLAGS)
 
 include $(BUILDPATH)/gcc-config.mk
@@ -36,8 +36,8 @@ sys:
 machine:
 		ln -s $(BUILDPATH) $@
 
-unix.elf:       $(KERNOBJ) $(LDSCRIPT)
-		$(CC) $(LDFLAGS) $(KERNOBJ) -o $@
+unix.elf:       $(KERNOBJ-y) $(LDSCRIPT)
+		$(CC) $(LDFLAGS) $(KERNOBJ-y) -o $@
 		chmod -x $@
 		$(OBJDUMP) -d -S $@ > unix.dis
 		$(OBJCOPY) -O binary -R .boot -R .config $@ unix.bin

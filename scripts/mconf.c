@@ -326,7 +326,7 @@ static void cprint_init(void)
 	indent = 0;
 	child_count = 0;
 	//cprint("./scripts/kconfig/lxdialog/lxdialog");
-	cprint("./lxdialog/lxdialog");
+	cprint("./scripts/lxdialog/lxdialog");
 	cprint("--backtitle");
 	cprint(menu_backtitle);
 }

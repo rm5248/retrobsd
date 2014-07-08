@@ -59,10 +59,13 @@ OBJFILES =	zconf.tab.o
 # Main targets
 #
 
-all:	 mconf 
+all:	 lxd mconf 
 
 mconf:	mconf.o $(OBJFILES)
 	$(CC) $(CFLAGS) -o mconf mconf.o $(OBJFILES) $(CLIBFLAGS)
+
+lxd:
+	$(MAKE) -C lxdialog
 
 #
 # Dependencies
