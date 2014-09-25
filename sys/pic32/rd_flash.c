@@ -4,6 +4,7 @@
 #include "errno.h"
 #include "dk.h"
 #include "debug.h"
+#include "rdisk.h"
 
 extern unsigned char flash_data[]      asm("_binary_flash_img_start");
 extern unsigned char flash_data_size[] asm("_binary_flash_img_size");
